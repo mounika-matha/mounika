@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Language Exchange Hub</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background: #0077cc;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    main {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    section {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin: 0.5rem 0;
+    }
+
+    input, select, button {
+      padding: 0.5rem;
+      margin-top: 0.25rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    #chatBox {
+      height: 200px;
+      border: 1px solid #ccc;
+      padding: 0.5rem;
+      overflow-y: auto;
+      background: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      margin: 0.3rem 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🌍 Language Exchange Hub</h1>
+  </header>
+
+  <main>
+    <section id="profile">
+      <h2>Your Profile</h2>
+      <label>
+        Name:
+        <input type="text" id="name" />
+      </label>
+      <label>
+        Native Language:
+        <select id="nativeLang">
+          <option>English</option>
+          <option>Spanish</option>
+          <option>French</option>
+          <option>German</option>
+          <option>Mandarin</option>
+        </select>
+      </label>
+      <label>
+        Practicing:
+        <select id="targetLang">
+          <option>Spanish</option>
+          <option>French</option>
+          <option>Mandarin</option>
+          <option>German</option>
+          <option>English</option>
+        </select>
+      </label>
+      <button onclick="findMatch()">Find Match</button>
+    </section>
+
+    <section id="match">
+      <h2>Your Match</h2>
+      <div id="matchInfo">No match yet.</div>
+    </section>
+
+    <section id="chat">
+      <h2>Chat Box (Text Only Demo)</h2>
+      <div id="chatBox"></div>
+      <input type="text" id="msgInput" placeholder="Type message..." />
+      <button onclick="sendMessage()">Send</button>
+    </section>
+  </main>
+
+  <script>
+    function findMatch() {
+      const name = document.getElementById("name").value.trim();
+      const native = document.getElementById("nativeLang").value;
+      const target = document.getElementById("targetLang").value;
+
+      if (!name) {
+        alert("Please enter your name.");
+        return;
+      }
+
+      const matchName = ["Maria", "Carlos", "Lena", "Wei", "Tomoko"][Math.floor(Math.random() * 5)];
+      const matchInfo = `👤 You are matched with ${matchName} (Native: ${target}, Practicing: ${native})`;
+      document.getElementById("matchInfo").innerText = matchInfo;
+
+      // Clear chat
+      document.getElementById("chatBox").innerHTML = '';
+    }
+
+    function sendMessage() {
+      const input = document.getElementById("msgInput");
+      const msg = input.value.trim();
+      if (msg === "") return;
+
+      const chatBox = document.getElementById("chatBox");
+      const p = document.createElement("p");
+      p.textContent = `You: ${msg}`;
+      chatBox.appendChild(p);
+      input.value = "";
+
+      // Simulate response
+      setTimeout(() => {
+        const reply = document.createElement("p");
+        reply.textContent = `Partner: Interesting! Tell me more.`;
+        reply.style.color = "gray";
+        chatBox.appendChild(reply);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
